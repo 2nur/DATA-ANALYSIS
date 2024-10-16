@@ -1,20 +1,20 @@
 
---ilk olarak SUPERMARKET SALES veritabanı oluşturduk
+--ilk olarak SUPERMARKET SALES veritabanÄ± oluÅŸturduk
 
---SUPERMARKET SALES tablosunu çağırma
+--SUPERMARKET SALES tablosunu Ã§aÄŸÄ±rma
 select*from SUPERMARKET SALES
 
 
---Müşteri segmentleri "Consumer" veya "Home Office" olan ilk 20 müşteriler kimlerdir?(isimleriyle)
+--MÃ¼ÅŸteri segmentleri "Consumer" veya "Home Office" olan ilk 20 mÃ¼ÅŸteriler kimlerdir?(isimleriyle)
 select top 20
 Customer_Name,Ship_Mode
 from SUPERMARKET SALES
 where Segment='Consumer' or Segment = 'Home Office' ;
 
 
---Office Supplies" kategorisinde, 2018 yılında 500'den fazla satış yapan müşteriler kimlerdir?
+--Office Supplies" kategorisinde, 2018 yÄ±lÄ±nda 500'den fazla satÄ±ÅŸ yapan mÃ¼ÅŸteriler kimlerdir?
 SELECT  top 10
-Customer_Name,sum(Sales) as toplam_satış
+Customer_Name,sum(Sales) as toplam_satÄ±ÅŸ
 FROM SUPERMARKET SALES
 WHERE year(Order_Date) =2018
 and  Sales >=500
@@ -22,7 +22,7 @@ and Category='Office Supplies '
 Group by Customer_Name
 
 
---En yüksek satış yapan müşteri kimdir?
+--En yÃ¼ksek satÄ±ÅŸ yapan mÃ¼ÅŸteri kimdir?
 SELECT TOP 1 
 Customer_Name, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -30,7 +30,7 @@ GROUP BY Customer_Name
 ORDER BY Total_Sales DESC;
 
 
---En düşük  satış yapan müşteri kimdir?
+--En dÃ¼Ã¾Ã¼k  satÄ±ÅŸ yapan mÃ¼ÅŸteri kimdir?
 select top 1
 Customer_Name, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -38,7 +38,7 @@ GROUP BY Customer_Name
 order by Total_Sales
 
 
---En fazla satış yapılan ülke hangisidir?
+--En fazla satÄ±ÅŸ yapÄ±lan Ã¼lke hangisidir?
 select top 1
 Country, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -46,7 +46,7 @@ GROUP BY Country
 order by Total_Sales desc
 
 
---En fazla satış yapılan şehir hangisidir?
+--En fazla satÄ±ÅŸ yapÄ±lan ÅŸehir hangisidir?
 select top 1
 City, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -54,7 +54,7 @@ GROUP BY City
 order by Total_Sales  desc
 
 
---kaç benzersiz müşteri vardır?
+--kaÃ§ benzersiz mÃ¼ÅŸteri vardÄ±r?
 select 
 Customer_Name,COUNT(DISTINCT('Customer_Name')) 
 FROM SUPERMARKET SALES
@@ -62,18 +62,18 @@ GROUP BY Customer_Name
 ORDER BY Customer_Name ASC
 
 
---Siparişlerin toplam sayısı kaçtır?
-select COUNT(Order_ID)  AS SİPARİŞ_SAYISI
+--SipariÅŸlerin toplam sayÄ±sÄ± kaÃ§tÄ±r?
+select COUNT(Order_ID)  AS SÃPARÃÃ_SAYISI
 FROM SUPERMARKET SALES
 
 
---Her bir ürünün toplam sipariş sayısı kaçtır)
-select Product_Name,COUNT(Order_ID)  AS SİPARİŞ_SAYISI
+--Her bir Ã¼rÃ¼nÃ¼n toplam sipariÅŸ sayÄ±sÄ± kaÃ§tÄ±r)
+select Product_Name,COUNT(Order_ID)  AS SIPARIS_SAYISI
 FROM SUPERMARKET SALES
 group by Product_Name
 
 
---En çok hangi ürün satılmış?
+--En Ã§ok hangi Ã¼rÃ¼n satÄ±lmÄ±ÅŸ?
 select top 1
 Product_Name, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -81,7 +81,7 @@ GROUP BY Product_Name
 order by Total_Sales desc
 
 
-----En az hangi ürün satılmış?
+----En az hangi Ã¼rÃ¼n satÄ±lmÄ±ÅŸ?
 select top 1
 Product_Name, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -89,7 +89,7 @@ GROUP BY Product_Name
 order by Total_Sales 
 
 
---Satışları en fazla olan kategori nedir?
+--SatÄ±ÅŸlarÄ± en fazla olan kategori nedir?
 select top 1
 Category, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -97,7 +97,7 @@ GROUP BY Category
 order by Total_Sales  desc
 
 
---Müşteri segmentlerine göre toplam satışlar nedir?
+--MÃ¼ÅŸteri segmentlerine gÃ¶re toplam satÄ±ÅŸlar nedir?
 select 
 Segment, SUM(Sales) AS Total_Sales
 FROM SUPERMARKET SALES
@@ -105,57 +105,57 @@ GROUP BY Segment
 order by Total_Sales 
 
 
---Siparişler hangi yıllarda daha fazladır?
+--SipariÅŸler hangi yÄ±llarda daha fazladÄ±r?
 select 
-year(Order_Date), count(Order_ID) AS siparişler
+year(Order_Date), count(Order_ID) AS sipariÅŸler
 FROM SUPERMARKET SALES
 GROUP BY year(Order_Date)
-order by siparişler desc
+order by sipariÅŸler desc
 
 
---Kargo modu ile en çok kullanılan nakliye türü nedir?
+--Kargo modu ile en Ã§ok kullanÄ±lan nakliye tÃ¼rÃ¼ nedir?
 select 
-Ship_Mode, count(Order_ID) AS nakliye_sayısı
+Ship_Mode, count(Order_ID) AS nakliye_sayÄ±sÄ±
 FROM SUPERMARKET SALES
 GROUP BY Ship_Mode
-order by  nakliye_sayısı desc
+order by  nakliye_sayÄ±sÄ± desc
 
 
---Hangi 10 şehirde en yüksek  satış gerçekleştirilmiştir?
+--Hangi 10 ÅŸehirde en yÃ¼ksek  satÄ±ÅŸ gerÃ§eklektirilmiÅŸtir?
 select top 10
-City,sum(Sales)as en_yüksek_atış
+City,sum(Sales)as en_yÃ¼ksek_satÄ±ÅŸ
 FROM SUPERMARKET SALES
 GROUP BY City
-order by  en_yüksek_atış desc
+order by  en_yÃ¼ksek_satÄ±ÅŸ desc
 
 
---Bir müşterinin ortalama satış miktarı nedir?
+--Bir mÃ¼ÅŸterinin ortalama satÄ±ÅŸ miktarÄ± nedir?
 select 
-Customer_Name ,round(avg(Sales),2)as ortalama_satış
+Customer_Name ,round(avg(Sales),2)as ortalama_satÄ±ÅŸ
 FROM SUPERMARKET SALES 
 group by Customer_Name
-order by ortalama_satış asc
+order by ortalama_satÄ±ÅŸ asc
 
 
---Bir ay içinde en fazla sipariş hangi üründen verilmiştir? (Örneğin Ocak)
+--Bir ay iÃ§inde en fazla sipariÅŸ hangi Ã¼rÃ¼nden verilmiÅŸtir? (Ã–rneÄŸin Ocak)
 select top 1
-Product_Name,Sub_Category ,count(Order_ID)as ürün_sayısı
+Product_Name,Sub_Category ,count(Order_ID)as Ã¼rÃ¼n_sayÄ±sÄ±
 FROM SUPERMARKET SALES 
 where month(Order_Date)= 1
 group by Product_Name,Sub_Category
-order by ürün_sayısı desc
+order by Ã¼rÃ¼n_sayÄ±sÄ± desc
 
 
---Kargo moduna göre "Same Day" veya "Standard Class " olan siparişlerin toplam sayısı 
+--Kargo moduna gÃ¶re "Same Day" veya "Standard Class " olan sipariÅŸlerin toplam sayÄ±sÄ± 
 select 
-Ship_Mode ,count(Sales) as toplam_sayı
+Ship_Mode ,count(Sales) as toplam_sayÄ±sÄ±
 FROM SUPERMARKET SALES
 where Ship_Mode='Same Day' 
 or Ship_Mode='Standard Class'
 group by Ship_Mode
 
 
---"Furniture" kategorisinde, satış miktarı 1000'den fazla olan ürünler nelerdir?
+--"Furniture" kategorisinde, satÄ±ÅŸ miktarÄ± 1000'den fazla olan Ã¼rÃ¼nler nelerdir?
 select 
 Product_Name,Category,Sales
 FROM SUPERMARKET SALES
@@ -164,17 +164,17 @@ and Sales>=10000
 order by  Product_Name asc
 
 
---2017 yılında "Technology" veya "Office Supplies" kategorisinde en fazla 5 satış yapılan ürünler hangileridir?
+--2017 yÄ±lÄ±nda "Technology" veya "Office Supplies" kategorisinde en fazla 5 satÄ±ÅŸ yapÄ±lan Ã¼rÃ¼nler hangileridir?
 select top 5
-Product_Name,Category,sum(Sales) as Satış
+Product_Name,Category,sum(Sales) as SatÄ±ÅŸ
 FROM SUPERMARKET SALES
 where year(Order_Date)= 2017 and
 (Category='Technology'  or Category='Office Supplies')
 group by Product_Name,Category
-order by Satış desc
+order by SatÄ±ÅŸ desc
 
 
---"Office Supplies" kategorisinde, 2021 yılında 700'den fazla satış yapan müşteriler kimlerdir?
+--"Office Supplies" kategorisinde, 2021 yÄ±lÄ±nda 700'den fazla satÄ±ÅŸ yapan mÃ¼ÅŸteriler kimlerdir?
 select 
 Customer_Name,Product_Name,Sales
 FROM SUPERMARKET SALES
@@ -184,7 +184,7 @@ and Sales>=700
 order by Sales desc
 
 
---Her şehrin toplam satışları ile en yüksek satış yapılan şehir arasındaki fark 
+--Her ÅŸehrin toplam satÄ±ÅŸlarÄ± ile en yÃ¼ksek satÄ±ÅŸ yapÄ±lan ÅŸehir arasÄ±ndaki fark 
 SELECT City, SUM(Sales) - (SELECT MAX(total_sales) 
                             FROM (SELECT SUM(Sales) AS total_sales 
                                   FROM SUPERMARKET SALES
@@ -194,7 +194,7 @@ GROUP BY City;
 
 
 
---"Technology" kategorisindeki ürünlerin toplam satışının, tüm satışlara oranı
+--"Technology" kategorisindeki Ã¼rÃ¼nlerin toplam satÄ±ÅŸlarÄ±n, tÃ¼m satÄ±ÅŸlara oranÄ±
 SELECT (SELECT SUM(Sales) 
         FROM SUPERMARKET SALES
         WHERE Category = 'Technology') * 1.0 / 
@@ -202,7 +202,7 @@ SELECT (SELECT SUM(Sales)
         FROM SUPERMARKET SALES) AS technology_sales_ratio;
 
 
---Belirli bir eyalet (örneğin, "California") için toplam satışların, tüm eyaletlerdeki toplam satışların oranı
+--Belirli bir eyalet (Ã¶rneÄŸin, "California") iÃ§in toplam satÄ±ÅŸlarÄ±n, tÃ¼m eyaletlerdeki toplam satÄ±ÅŸlara oranÄ±
 SELECT (SELECT SUM(Sales) 
         FROM SUPERMARKET SALES
         WHERE State = 'California') * 1.0 / 
@@ -210,30 +210,30 @@ SELECT (SELECT SUM(Sales)
         FROM SUPERMARKET SALES) AS california_sales_ratio;
 
 
---Her ship modunun toplam sipariş sayısı
+--Her ship modunun toplam sipariÅŸ sayÄ±sÄ±
 select Ship_Mode,count(Ship_Mode)
 from SUPERMARKET SALES
 group by Ship_Mode
 
 
 
---"United States" ülkesindeki "Los Angeles" ve "Philadelphia" şehirlerinde, "California" ve "Pennsylvania" eyaletlerine göre toplam satışlar nedir?
+--"United States" Ã¼lkesindeki "Los Angeles" ve "Philadelphia" ÅŸehirlerinde, "California" ve "Pennsylvania" eyaletlerine gÃ¶re toplam satÄ±ÅŸlar nedir?
 select
-City,State,sum(Sales) as satış
+City,State,sum(Sales) as satÄ±ÅŸ
 from SUPERMARKET SALES
 where Country='United States' and 
 City In('Los Angeles','Philadelphia') and
 (State ='California'  or  State='Pennsylvania')
 group by  City,State
 
---Null Postal Kodlarının Sayısını Bulma
-select count(*) AS NULL_Postal_Kodlarının_Sayısı
+--Null Postal KodlarÄ±nÄ±n SayÄ±sÄ±nÄ± Bulma
+select count(*) AS NULL_Postal_KodlarÄ±nÄ±n_SayÄ±sÄ±
 from SUPERMARKET SALES
 where Postal_Code IS NULL
 
 
---NULL Olmayan Postal Kodlarının Sayısını Bulma
-select count(*) AS Postal_Kodlarının_Sayısı
+--NULL Olmayan Postal KodlarÄ±nÄ±n  SayÄ±sÄ±nÄ±  Bulma
+select count(*) AS Postal_KodlarÄ±nÄ±n_SayÄ±sÄ±
 from SUPERMARKET SALES
 where Postal_Code IS NOT NULL
 
