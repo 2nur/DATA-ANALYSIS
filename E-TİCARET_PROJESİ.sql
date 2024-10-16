@@ -1,5 +1,5 @@
 
---tüm verileri çağırma
+--tÃ¼m verileri Ã§aÄŸÄ±rma
 select*from USERS
 select*from ORDERS
 select*from ORDERDETAILS
@@ -14,9 +14,9 @@ select*from INVOICES
 select*from INVOICEDETAILS
 
 
---şehirlere göre verilen siparişleri listeleme
+--Åehirlere gÃ¶re verilen sipariÅŸleri listeleme
 SELECT
-C.CITY,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+C.CITY,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -26,13 +26,13 @@ JOIN COUNTRIES CT ON CT.ID=A.COUNTRYID
 JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 GROUP BY C.CITY
-ORDER BY TOPLAM_SATIŞ
+ORDER BY TOPLAM_SATIÅ
 
 
 
--- Ürün kategorilerine göre sipariş dağılımı
+-- ÃœrÃ¼n kategorilerine gÃ¶re sipariÅŸ daÄŸÄ±lÄ±mÄ±
 SELECT
-I.CATEGORY1,I.CATEGORY2,I.CATEGORY3,I.CATEGORY4,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+I.CATEGORY1,I.CATEGORY2,I.CATEGORY3,I.CATEGORY4,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -43,12 +43,12 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP BY  I.CATEGORY1,I.CATEGORY2,I.CATEGORY3,I.CATEGORY4
-ORDER BY TOPLAM_SATIŞ
+ORDER BY TOPLAM_SATIÅ
 
 
---Müşterilere  göre  sipariş dağılımı
+--MÃ¼ÅŸterilere  gÃ¶re  sipariÅŸ daÄŸÄ±lÄ±mÄ±
 SELECT
-u.NAMESURNAME,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+u.NAMESURNAME,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -59,16 +59,16 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP BY U.NAMESURNAME
-order by TOPLAM_SATIŞ desc
+order by TOPLAM_SATIÅ desc
 
 
---müşteri cinsiyetine göre sipariş dağılımı
+--mÃ¼ÅŸteri cinsiyetine gÃ¶re sipariÅŸ daÄŸÄ±lÄ±mÄ±
 SELECT
 CASE 
 	when u.GENDER='E' then 'ERKEK'
 	when u.GENDER='K' then 'KADIN'
 END AS GENDER1, 
-u.GENDER,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+u.GENDER,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -79,20 +79,20 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 group by u.GENDER
-order by TOPLAM_SATIŞ desc
+order by TOPLAM_SATIÅ desc
 
 
---Ödeme türüne göre sipariş dağılımı
+--Ã–deme tÃ¼rÃ¼ne gÃ¶re sipariÅŸ daÄŸÄ±lÄ±mÄ±
 SELECT
-IIF(PAYMENTTYPE=1 ,'BANKA_KARTI','KREDİ KARTI')  AS PAYMENT_CARD,
-SUM(PAYMENTTOTAL) AS TOPLAM_ÖDEME
+IIF(PAYMENTTYPE=1 ,'BANKA_KARTI','KREDÃ KARTI')  AS PAYMENT_CARD,
+SUM(PAYMENTTOTAL) AS TOPLAM_Ã–DEME
 FROM PAYMENTS 
 GROUP BY PAYMENTTYPE
 
 
---Şehirlerin haftalarına göre sipariş dağılımı
+--Åehirlerin haftalarÄ±na gÃ¶re sipariÅŸ daÄŸÄ±lÄ±mÄ±
 SELECT
-C.CITY,DATEPART(DW,DATE_) AS HAFTANIN_GÜNLERİ,DATENAME(DW,DATE_)AS HAFTANIN_GÜNLERİ_AD,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+C.CITY,DATEPART(DW,DATE_) AS HAFTANIN_GÃœNLERÄ°,DATENAME(DW,DATE_)AS HAFTANIN_GÃœNLERI_AD,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -101,9 +101,9 @@ JOIN CITIES C ON C.ID=A.CITYID
 GROUP BY C.CITY,DATEPART(DW,DATE_),DATENAME(DW,DATE_)
 ORDER BY C.CITY
 
---Siparişlerin ortalama kargo sürelerini getirme
+--SipariÅŸlerin ortalama kargo sÃ¼relerini getirme
 SELECT
-C.CITY,AVG(DATEDIFF(HOUR,O.DATE_,I.DATE_)) AS ORT_KARGO_SÜRELERİ,ROUND(SUM(O.TOTALPRICE),2) AS TOPLAM_SATIŞ
+C.CITY,AVG(DATEDIFF(HOUR,O.DATE_,I.DATE_)) AS ORT_KARGO_SÃœRELERI,ROUND(SUM(O.TOTALPRICE),2) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -111,10 +111,10 @@ JOIN CITIES C ON C.ID=A.CITYID
 JOIN ORDERDETAILS OD ON OD.ORDERID=O.ID
 JOIN INVOICES I ON I.ADDRESSID=A.ID
 GROUP BY C.CITY
-ORDER BY TOPLAM_SATIŞ
+ORDER BY TOPLAM_SATIÅ
 
 
---Tüm kullanıcıların isim, e-posta ve şehir bilgilerini listele
+--TÃ¼m kullanÄ±cÄ±larÄ±n isim, e-posta ve ÅŸehir bilgilerini listele
 SELECT DISTINCT
 U.NAMESURNAME,U.EMAIL,C.CITY
 FROM USERS U 
@@ -128,9 +128,9 @@ JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 ORDER BY U.NAMESURNAME
 
 
---Her siparişin tarihini, toplam tutarını ve kullanıcı bilgisini listele
+--Her sipariÅŸin tarihini, toplam tutarÄ±nÄ± ve kullanÄ±cÄ± bilgisini listele
 SELECT 
-U.NAMESURNAME,U.EMAIL,O.DATE_,A.ADDRESSTEXT, U.TELNR1,U.TELNR2, SUM(OD.AMOUNT) AS TOPLAM_MİKTAR ,SUM(O.TOTALPRICE) AS TOPLAM_SATIŞ
+U.NAMESURNAME,U.EMAIL,O.DATE_,A.ADDRESSTEXT, U.TELNR1,U.TELNR2, SUM(OD.AMOUNT) AS TOPLAM_MÄ°KTAR ,SUM(O.TOTALPRICE) AS TOPLAM_SATIÅ
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -143,7 +143,7 @@ GROUP BY U.NAMESURNAME,U.EMAIL,O.DATE_,A.ADDRESSTEXT, U.TELNR1,U.TELNR2
 ORDER BY U.NAMESURNAME
 
 
---Hangi ürünlerin en fazla satıldığını ve toplam satış miktarını gösterme
+--Hangi Ã¼rÃ¼nlerin en fazla satÄ±ldÄ±ÄŸÄ± ve toplam satÄ±ÅŸ miktarÄ±nÄ± gÃ¶sterme
 SELECT TOP 5
 I.ItemName, I.CATEGORY1,I.CATEGORY2,SUM(OD.AMOUNT) AS Total_AMOUNT
 FROM ITEMS I
@@ -152,9 +152,9 @@ GROUP BY I.ItemName, I.CATEGORY1,I.CATEGORY2
 ORDER BY Total_AMOUNT DESC;
 
 
---Her ilçede bulunan  kullanıcıların sayısını gösterme
+--Her ilÃ§ede bulunan  kullanÄ±cÄ±larÄ±n sayÄ±sÄ±nÄ± gÃ¶sterme
 SELECT
-D.DISTRICT,count(o.USERID) as kullanıcı_sayısı
+D.DISTRICT,count(o.USERID) as kullanÄ±cÄ±_sayÄ±sÄ±
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -167,9 +167,9 @@ JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP by D.DISTRICT
 
 
---Belirli bir tarih aralığında (örneğin :2019-02-21 ile 2019-02-21) verilen siparişlerin toplam sayısını gösterme
+--Belirli bir tarih aralÄ±ÄŸÄ±nda (Ã¶rneÄŸin :2019-02-21 ile 2019-02-21) verilen sipariÅŸlerin toplam sayÄ±sÄ±nÄ± gÃ¶sterme
 SELECT
-CONVERT(DATE,O.DATE_) as tarih  ,count(O.ID) AS Sipariş_toplam_sayısı
+CONVERT(DATE,O.DATE_) as tarih  ,count(O.ID) AS SipariÅŸ_toplam_sayÄ±sÄ±
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -184,9 +184,9 @@ GROUP by CONVERT(DATE,O.DATE_)
 
 
 
---belirli bir şehirlerde ("Istanbul" /"Ankara"/"Karabük") verilen tüm siparişlerin toplam tutarını listele
+--belirli bir ÅŸehirlerde ("Istanbul" /"Ankara"/"KarabÃ¼k") verilen tÃ¼m sipariÅŸlerin toplam tutarÄ±nÄ± listele
 SELECT
-C.CITY  ,sum(OD.AMOUNT) AS Sipariş_toplam_tutar
+C.CITY  ,sum(OD.AMOUNT) AS SipariÅŸ_toplam_tutar
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -196,13 +196,13 @@ JOIN COUNTRIES CT ON CT.ID=A.COUNTRYID
 JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
-where C.CITY IN('İSTANBUL','ADANA','KARABÜK')
+where C.CITY IN('ISTANBUL','ADANA','KARABÃœK')
 GROUP by C.CITY
 
 
---şehir bazında en fazla sipariş verilen ilk 5 şehri göster
+--Åehir bazÄ±nda en fazla sipariÅŸ verilen ilk 5 ÅŸehri gÃ¶ster
 SELECT top 5
-C.CITY  ,sum(OD.AMOUNT) AS Sipariş_toplam_tutar
+C.CITY  ,sum(OD.AMOUNT) AS SipariÅŸ_toplam_tutar
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -213,12 +213,12 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP by C.CITY
-ORDER BY Sipariş_toplam_tutar DESC
+ORDER BY SipariÅŸ_toplam_tutar DESC
 
 
--- kullanıcıların sipariş başına ortalama ne kadar ödeme yaptığını gösterme
+-- kullanÄ±cÄ±larÄ±n sipariÅŸ baÅŸÄ±na ortalama ne kadar Ã¶deme yaptÄ±ÄŸÄ±nÄ± gÃ¶sterme
 SELECT 
-U.NAMESURNAME,ROUND(AVG(O.TOTALPRICE),2) AS Sipariş_ortalama_ödeme
+U.NAMESURNAME,ROUND(AVG(O.TOTALPRICE),2) AS SipariÅŸ_ortalama_Ã¶deme
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -229,12 +229,12 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP by U.NAMESURNAME
-ORDER BY Sipariş_ortalama_ödeme DESC
+ORDER BY SipariÅŸ_ortalama_Ã¶deme DESC
 
 
---Ürün  markasına göre satış miktarları
+--ÃœrÃ¼n  markasÄ±na gÃ¶re satÄ±ÅŸ miktarlarÄ±
 SELECT 
-ı.BRAND,SUM(OD.AMOUNT) AS SATIŞ_MİKTARI
+BRAND,SUM(OD.AMOUNT) AS SATIÅ_MIKTARI
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -245,13 +245,13 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP by I.BRAND
-ORDER BY SATIŞ_MİKTARI DESC
+ORDER BY SATIÅ_MIKTARI DESC
 
 
 
---ülkelere göre verilen toplam sipariş sayısını gösterme
+--Ã¼lkelere gÃ¶re verilen toplam sipariÅŸ sayÄ±sÄ±nÄ± gÃ¶sterme
 SELECT 
-CT.COUNTRY,COUNT(OD.ORDERID) AS SİPARİŞ_SAYISI
+CT.COUNTRY,COUNT(OD.ORDERID) AS SÄ°PARÄ°Å_SAYISI
 FROM USERS U 
 JOIN ADDRESS A ON U.ID=A.USERID
 JOIN ORDERS O ON O.ID= U.ID
@@ -262,6 +262,6 @@ JOIN TOWNS T ON T.ID=A.TOWNID
 JOIN DISTRICTS D ON D.ID=A.DISTRICTID
 JOIN ITEMS I ON I.ID=OD.ITEMID
 GROUP by CT.COUNTRY
-ORDER BY  SİPARİŞ_SAYISI DESC
+ORDER BY  SÄ°PARÄ°Å_SAYISI DESC
 
 
